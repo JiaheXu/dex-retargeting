@@ -1,0 +1,16 @@
+export PYTHONPATH=$PYTHONPATH:`pwd`
+python3 example/detect_from_img.py \
+  --robot-name allegro \
+  --video-path example/test.jpg \
+  --retargeting-type vector \
+  --hand-type right \
+  --output-path example/data/allegro_joints.pkl 
+  
+  
+  export PYTHONPATH=$PYTHONPATH:`pwd`
+python3 example/detect_from_video_test.py \
+  --robot-name allegro \
+  --video-path example/data/human_hand_video.mp4 \
+  --retargeting-type vector \
+  --hand-type right \
+  --output-path example/data/allegro_joints.pkl 
