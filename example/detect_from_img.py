@@ -16,7 +16,10 @@ def retarget_video(retargeting: SeqRetargeting, img_path: str, output_path: str,
 
     #rgb = mp.Image.create_from_file(img_path)
     rgb = cv2.imread(img_path)
-    #rgb = cv2.resize( rgb, (1280,720))
+
+    rgb = cv2.resize( rgb, (640,360))
+    cv2.imwrite("rgb_test.jpg", rgb)
+
     data = []
     #print("img shape: ", rgb.shape)
     detector = SingleHandDetector(hand_type="Right", selfie=False)
@@ -26,34 +29,10 @@ def retarget_video(retargeting: SeqRetargeting, img_path: str, output_path: str,
         num_box, joint_pos, keypoint_2d, mediapipe_wrist_rot = detector.detect(rgb)
         plot_rgb = rgb
         print("keypoint_2d: ", keypoint_2d)
-        print("joint_pos: ", joint_pos)        
-        #for i in range(keypoint_2d):
-        #   plot_img = cv2.circle( plot_img, (start_x, start_y), 3, (255,0,0), 2) 
-    #     retargeting_type = retargeting.optimizer.retargeting_type
-    #     indices = retargeting.optimizer.target_link_human_indices
-    #     if retargeting_type == "POSITION":
-    #         indices = indices
-    #         ref_value = joint_pos[indices, :]
-    #     else:
-    #         origin_indices = indices[0, :]
-    #         task_indices = indices[1, :]
-    #         ref_value = joint_pos[task_indices, :] - joint_pos[origin_indices, :]
-    #     qpos = retargeting.retarget(ref_value)
-    #     data.append(qpos)
+        print("joint_pos: ", joint_pos)
+        img = detector.draw_skeleton_on_image(rgb, keypoint_2d, "white")
+        cv2.imwrite( "./example/2d_joints.jpg", img)
 
-    #     meta_data = dict(
-    #         config_path=config_path,
-    #         dof=retargeting.optimizer.dof,
-    #         joint_names=retargeting.optimizer.target_joint_names,
-    #     )
-
-    #     output_path = Path(output_path)
-    #     output_path.parent.mkdir(parents=True, exist_ok=True)
-    #     with output_path.open("wb") as f:
-    #         pickle.dump(dict(data=data, meta_data=meta_data), f)
-    #     pbar.update(1)
-
-    # cv2.destroyAllWindows()
 
 
 def main(

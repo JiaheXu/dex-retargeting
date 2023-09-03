@@ -1,7 +1,7 @@
 export PYTHONPATH=$PYTHONPATH:`pwd`
 python3 example/detect_from_img.py \
   --robot-name allegro \
-  --video-path example/test.jpg \
+  --video-path example/mask.png \
   --retargeting-type vector \
   --hand-type right \
   --output-path example/data/allegro_joints.pkl 
